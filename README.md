@@ -11,14 +11,14 @@ project will slowly adapt to accommodate their changes.
 Here is an example on how to use this library:
 
 
-using GoxSharp;
-using GoxSharp.Models;
-using ExtensionMethods;
+    using GoxSharp;
+    using GoxSharp.Models;
+    using ExtensionMethods;
 
-namespace ConsoleApplication1
-{
-    class Program
+    namespace ConsoleApplication1
     {
+      class Program
+      {
         static void Main(string[] args)
         {
             TradeFunctions tf = new TradeFunctions();
@@ -35,8 +35,8 @@ namespace ConsoleApplication1
                     price = new Price(80.75)
                 });  // order 500 BTC at $80.75 USD
         }
+      }
     }
-}
 
 You must add this to your web/app config file (in the startup application, not the GoxSharp project) in order to use this library.
 You can obtain your API key in the Security Center tab at MtGox and assign it some access rights.
