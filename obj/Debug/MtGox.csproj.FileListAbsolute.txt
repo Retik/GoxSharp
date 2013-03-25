@@ -1,0 +1,19 @@
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\bin\Debug\MtGox.dll
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\bin\Debug\MtGox.pdb
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\bin\Debug\RestSharp.dll
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\bin\Debug\RestSharp.xml
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\obj\Debug\MtGox.dll
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\obj\Debug\MtGox.pdb
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\bin\Debug\Newtonsoft.Json.dll
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\bin\Debug\Newtonsoft.Json.xml
+m:\manny\bitzagong\bitzagong-mvc4\MtGox\obj\Debug\MtGox.csprojResolveAssemblyReference.cache
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\Newtonsoft.Json.xml
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\RestSharp.xml
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\obj\Debug\MtGox.csprojResolveAssemblyReference.cache
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\MtGox.dll
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\MtGox.pdb
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\Newtonsoft.Json.dll
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\RestSharp.dll
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\obj\Debug\MtGox.dll
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\obj\Debug\MtGox.pdb
+M:\manny\Documents\Visual Studio 2012\Projects\ConsoleApplication1\MtGox\bin\Debug\MtGox.dll.config
