@@ -1,4 +1,7 @@
 *.dll
 *.cache
-.bin/*
-.obj/*
+*.pdb
+bin/Debug/*
+bin/Release/*
+obj/Debug/*
+obj/Release/*
