@@ -8,6 +8,11 @@ Add this project to an existing project to use the Trade Functions class to invo
 This library is currently built for the latest MtGOX V2 API's.  Their documentation is still being built, so this
 project will slowly adapt to accommodate their changes.
 
+    Project Dependencies:
+     * RestSharp [NuGet Package]
+     * JSON.NET [NuGet Package]
+
+
 Here is an example on how to use this library:
 
 
