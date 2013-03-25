@@ -26,7 +26,7 @@ namespace GoxSharp
 
         public Info GetInfo()
         {
-            return (Info)mgrc.GetResponse("User", "money/info", Method.POST, null);
+            return (Info)mgrc.GetResponse("Info", "money/info", Method.POST, null);
         }
 
         public IdKey GetIdKey()
