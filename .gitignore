@@ -13,3 +13,13 @@ obj/Release/*
 !obj/Debug/RestSharp.dll
 !obj/Release/Newtonsoft.Json.dll
 !obj/Release/RestSharp.dll
+
+!bin/Debug/SocketIO*
+!bin/Debug/WebSocket*
+!bin/Release/SocketIO*
+!bin/Release/WebSocket*
+
+!obj/Debug/SocketIO*
+!obj/Debug/WebSocket*
+!obj/Release/SocketIO*
+!obj/Release/WebSocket*
