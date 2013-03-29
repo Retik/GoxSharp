@@ -58,10 +58,7 @@ namespace GoxSharp
             {
                 throw new MissingFieldException("You must configure your API Keys");
             }
-
-            TimeSpan span = DateTime.Now - UnixEpoch;
-            double seconds = span.TotalSeconds * 10000;
-            Int64 nonce = (Int64)seconds;
+            Int64 nonce = (Int64)DateTime.Now.Ticks;
 
             string endpoint = req.Resource.ToString();
             string post = "nonce=" + nonce;
