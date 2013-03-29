@@ -18,7 +18,7 @@ namespace GoxSharp
     public class MtGoxRestClient
     {
         private readonly string MTGOX_API_URL_v1 = "http://data.mtgox.com";
-        private readonly string MTGOX_API_URL_v2 = "https://mtgox.com";
+        private readonly string MTGOX_API_URL_v2 = "https://data.mtgox.com";
         private readonly string MTGOX_API_RESOURCE_v1 = "/api/1/";
         private readonly string MTGOX_API_RESOURCE_v2 = "/api/2/";
         private RestClient rc1 = null;
