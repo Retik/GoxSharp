@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
@@ -47,6 +47,7 @@ namespace GoxSharp.Models
                     tickers[TickerType.Last_orig].display, tickers[TickerType.Last].display, tickers[TickerType.Buy].display,
                     tickers[TickerType.Sell].display, tickers[TickerType.Vol].display);
         }
+        
     }
 
     public class Ticker
