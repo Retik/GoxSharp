@@ -10,16 +10,7 @@ namespace GoxSharp.Models
     public class Tickers
     {
         public List<Ticker> tickers { get; set; }
-        public Tickers(dynamic jsonObj)
-        {
-            tickers = new List<Ticker>();
-            string[] tickerNames = { "avg", "high", "low", "vwap", "last_all", "last_local", "last_orig", "last", "buy", "sell", "vol" };
-            foreach (string tickName in tickerNames)
-            {
-                JToken token = null;
-
-            }
-        }
+      
         public Tickers(JToken jsonObj)
         {
             tickers = new List<Ticker>();
