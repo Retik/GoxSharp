@@ -17,11 +17,7 @@ namespace GoxSharp.Models
             foreach (string tickName in tickerNames)
             {
                 JToken token = null;
-                if (jsonObj.data.TryGetValue(tickName, out token))
-                {
-                    Ticker tick = new Ticker(token, tickName);
-                    this.tickers.Add(tick);
-                }
+
             }
         }
         public Tickers(JToken jsonObj)
@@ -30,9 +26,18 @@ namespace GoxSharp.Models
             string[] tickerNames = { "avg", "high", "low", "vwap", "last_all", "last_local", "last_orig", "last", "buy", "sell", "vol" };
             foreach (string tickName in tickerNames)
             {
-                JToken token = jsonObj[tickName];
-                Ticker tick = new Ticker(token, tickName);
-                this.tickers.Add(tick);
+                if (jsonObj.Count() == 2)  //we have the REST API schema
+                {
+                    Ticker tick = new Ticker(jsonObj["data"][tickName], tickName);
+                    this.tickers.Add(tick);
+
+                }
+                else // we have the socketIO schema
+                {
+                    JToken token = jsonObj[tickName];
+                    Ticker tick = new Ticker(token, tickName);
+                    this.tickers.Add(tick);
+                }
             }
         }
     }

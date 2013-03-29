@@ -47,7 +47,7 @@ namespace GoxSharp
 
         public Tickers GetTicker(Currency currency)
         {
-            return (Tickers)mgrc.GetResponse("Tickers", String.Format("BTC{0}/money/ticker", currency.ToString()), Method.POST, null);
+            return (Tickers)mgrc.GetResponse("Tickers", String.Format("BTC{0}/money/ticker", currency.ToString()), Method.GET, null);
         }
 
         public Depth GetDepth(Currency currency)
