@@ -36,7 +36,6 @@ namespace GoxSharp
 
         public Orders GetOrders()
         {
-            //TODO create Orders model, need to get response from mtgox with schema
             return (Orders)mgrc.GetResponse("Orders", "money/orders", Method.POST, null);
         }
 
@@ -63,6 +62,13 @@ namespace GoxSharp
             nvc.Add("amount_int", order.amount.value_int.ToString());
             nvc.Add("price_int", order.price.value_int.ToString());
             return (OrderResponse)mgrc.GetResponse("OrderResponse", String.Format("BTC{0}/money/order/add", currency.ToString()), Method.POST, nvc);
+        }
+
+        public OrderCancelResponse CancelOrder(Order order)
+        {
+            NameValueCollection nvc = new NameValueCollection();
+            nvc.Add("oid", order.oid.ToString()); 
+            return (OrderCancelResponse)mgrc.GetResponse("OrderCancelResponse", String.Format("money/order/cancel"), Method.POST, nvc);
         }
 
        

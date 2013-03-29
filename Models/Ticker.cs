@@ -24,6 +24,17 @@ namespace GoxSharp.Models
                 }
             }
         }
+        public Tickers(JToken jsonObj)
+        {
+            tickers = new List<Ticker>();
+            string[] tickerNames = { "avg", "high", "low", "vwap", "last_all", "last_local", "last_orig", "last", "buy", "sell", "vol" };
+            foreach (string tickName in tickerNames)
+            {
+                JToken token = jsonObj[tickName];
+                Ticker tick = new Ticker(token, tickName);
+                this.tickers.Add(tick);
+            }
+        }
     }
 
     public class Ticker
@@ -111,13 +122,14 @@ namespace GoxSharp.Models
 
     }
 
-    public enum TickerType{
+    public enum TickerType
+    {
         Avg, High, Low, Vwap, Last_all, Last_local, Last_orig, Last, Buy, Sell, Vol
     }
     public enum Currency
     {
-        BTC, USD, None
+        BTC, USD, AUD, CAD, CHF, CNY, DKK, EUR, GBP, HKD, JPY, NZD, PLN, RUB, SEK, SGD, THB, None
     }
-  
-    
+
+
 }

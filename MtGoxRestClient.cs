@@ -56,7 +56,12 @@ namespace GoxSharp
         private RestRequest signRequestV2(RestRequest req, NameValueCollection parameters)
         {
             String apiKey = ConfigurationManager.AppSettings["MtGoxAPIKey"];
-            String apiSecret = ConfigurationManager.AppSettings["MtGoxApiSecret"];
+            String apiSecret = ConfigurationManager.AppSettings["MtGoxAPISecret"];
+
+            if (apiKey.Equals("NEEDTOCONFIG") || apiSecret.Equals("NEEDTOCONFIG"))
+            {
+                throw new MissingFieldException("You must configure your API Keys");
+            }
 
             TimeSpan span = DateTime.Now - UnixEpoch;
             double seconds = span.TotalSeconds * 10000;

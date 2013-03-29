@@ -20,6 +20,8 @@ namespace GoxSharp.Models
         public OrderStatus status { get; set; }
         public DateTime date { get; set; }
         public Int64 priority { get; set; }
+        public decimal _volume { get; set; }
+        public decimal _price { get; set; }
         public string actions { get; set; }
 
         public Order()
@@ -34,14 +36,15 @@ namespace GoxSharp.Models
         public Order(JToken token, string orderType)
         {
             DateTime now = DateTime.Now;
-            this.type = this.getOrderType(orderType);
+            this.type = getOrderType(orderType);
             Amount amount = new Amount() { value = token["amount"].Value<Decimal>(), value_int = token["amount_int"].Value<Int64>() };
             Price price = new Price { value = token["price"].Value<Decimal>(), value_int = token["price_int"].Value<Int64>() };
-
+            this._price = price.value;
+            this._volume = amount.value;
             this.stamp = new DateTime((token["stamp"].Value<long>() * 10) + 621355968000000000);
         }
 
-        public OrderType getOrderType(String type)
+        public static OrderType getOrderType(String type)
         {
             switch (type)
             {
@@ -51,6 +54,10 @@ namespace GoxSharp.Models
                     return OrderType.Bid;
                 case "market":
                     return OrderType.Market;
+                case "ask":
+                    return OrderType.Ask;
+                case "bid":
+                    return OrderType.Bid;
                 default:
                     return OrderType.None;
             }
@@ -71,6 +78,24 @@ namespace GoxSharp.Models
 
             this.status = result.Value<String>();
             this.orderId = id.Value<String>();
+        }
+    }
+    public class OrderCancelResponse
+    {
+        public string status { get; set; }
+        public Guid oid { get; set; }
+        public Guid qid { get; set; }
+
+        public OrderCancelResponse(dynamic jsonObj)
+        {
+            JToken result = null;
+            JToken data = null;
+            jsonObj.TryGetValue("result", out result);
+            jsonObj.TryGetValue("data", out data);
+
+            this.status = result.Value<String>();
+            this.oid = Guid.Parse(data["oid"].Value<String>());
+            this.qid = Guid.Parse(data["qid"].Value<String>());
         }
     }
 
@@ -116,7 +141,7 @@ namespace GoxSharp.Models
                 order.date = UnixTimeStampToDate(token["date"].Value<Double>());
                 order.status = getStatus(token["status"].Value<String>());
                 order.priority = token["priority"].Value<Int64>();
-
+                order.type = Order.getOrderType(token["type"].Value<String>());
 
                 orders.Add(order);
             }
@@ -136,6 +161,36 @@ namespace GoxSharp.Models
                     return Currency.USD;
                 case "BTC":
                     return Currency.BTC;
+                case "AUD":
+                    return Currency.AUD;
+                case "CAD":
+                    return Currency.CAD;
+                case "CHF":
+                    return Currency.CHF;
+                case "CNY":
+                    return Currency.CNY;
+                case "DKK":
+                    return Currency.DKK;
+                case "EUR":
+                    return Currency.EUR;
+                case "GBP":
+                    return Currency.GBP;
+                case "HKD":
+                    return Currency.HKD;
+                case "JPY":
+                    return Currency.JPY;
+                case "NZD":
+                    return Currency.NZD;
+                case "PLN":
+                    return Currency.PLN;
+                case "RUB":
+                    return Currency.RUB;
+                case "SEK":
+                    return Currency.SEK;
+                case "SGD":
+                    return Currency.SGD;
+                case "THB":
+                    return Currency.THB;
                 default:
                     return Currency.None;
             }

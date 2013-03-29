@@ -111,13 +111,35 @@ namespace GoxSharp.Models
             {
                 switch (t.Value<String>())
                 {
+                        
                     case "get_info":
                         rights[count] = Right.Get_Info;
+                        count++;
+                        break;
+                    case "deposit":
+                        rights[count] = Right.Deposit;
+                        count++;
+                        break;
+                    case "merchant":
+                        rights[count] = Right.Merchant;
+                        count++;
+                        break;
+                    case "trade":
+                        rights[count] = Right.Trade;
+                        count++;
+                        break;
+                    case "withdraw":
+                        rights[count] = Right.Withdraw;
+                        count++;
+                        break;
+                    default:
+                        rights[count] = Right.None;
+                        count++;
                         break;
 
 
                 }
-                count++;
+                
             }
             return rights;
         }
@@ -148,7 +170,7 @@ namespace GoxSharp.Models
 
     public enum Right
     {
-        Get_Info, Trade, Deposit, Withdraw, Merchant
+        Get_Info, Trade, Deposit, Withdraw, Merchant, None
     }
 
 
