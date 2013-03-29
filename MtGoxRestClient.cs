@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using RestSharp;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Web;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 
@@ -17,18 +13,18 @@ namespace GoxSharp
 {
     public class MtGoxRestClient
     {
-        private readonly string MTGOX_API_URL_v1 = "http://data.mtgox.com";
-        private readonly string MTGOX_API_URL_v2 = "https://data.mtgox.com";
-        private readonly string MTGOX_API_RESOURCE_v1 = "/api/1/";
-        private readonly string MTGOX_API_RESOURCE_v2 = "/api/2/";
-        private RestClient rc1 = null;
-        private RestClient rc2 = null;
+        private const string MTGOX_API_URL_v1 = "http://data.mtgox.com";
+        private const string MTGOX_API_URL_v2 = "https://data.mtgox.com";
+        private const string MTGOX_API_RESOURCE_v1 = "/api/1/";
+        private const string MTGOX_API_RESOURCE_v2 = "/api/2/";
+        private readonly RestClient rc1;
+        private readonly RestClient rc2;
         private readonly DateTime UnixEpoch = new DateTime(1970, 1, 1);
         private static readonly Encoding encoding = Encoding.UTF8;
         private string _endpoint { get; set; }
         private Method _method { get; set; }
         private NameValueCollection _parameters { get; set; }
-        private readonly string GOXSHARP_MODEL_NAMESPACE = "GoxSharp.Models.";
+        private const string GOXSHARP_MODEL_NAMESPACE = "GoxSharp.Models.";
 
         public MtGoxRestClient()
         {
@@ -39,7 +35,7 @@ namespace GoxSharp
 
         public dynamic makeRequestV2()
         {
-            return makeRequestV2(this._endpoint, this._method, this._parameters);
+            return makeRequestV2(_endpoint, _method, _parameters);
         }
 
         public dynamic makeRequestV2(string endpoint, Method method, NameValueCollection parameters)
@@ -95,11 +91,11 @@ namespace GoxSharp
 
         public Object GetResponse(string type, string endpoint, Method method, NameValueCollection parameters)
         {
-            this._endpoint = endpoint;
-            this._method = method;
-            this._parameters = parameters;
+            _endpoint = endpoint;
+            _method = method;
+            _parameters = parameters;
 
-            dynamic jsonObj = getObject(this.makeRequestV2());
+            dynamic jsonObj = getObject(makeRequestV2());
             Type t = Type.GetType(GOXSHARP_MODEL_NAMESPACE + type);
 
 
@@ -135,26 +131,15 @@ namespace GoxSharp
                     {
                         throw new UnauthorizedAccessException(token_string + ": " + error_msg);
                     }
-                    else if (token_string.Equals("unknown_error"))
+                    if (token_string.Equals("unknown_error"))
                     {
                         throw new Exception(token_string + ": " + error_msg);
                     }
-                    else
-                    {
-                        throw new Exception("Unhandled exception occured while parsing the response from the server.");
-                    }
+                    throw new Exception("Unhandled exception occured while parsing the response from the server.");
                 }
-                else
-                {
-                    return true;
-
-                }
+                return true;
             }
-            else
-            {
-                throw new MissingFieldException("MtGox did not return a valid response");
-            }
-
+            throw new MissingFieldException("MtGox did not return a valid response");
         }
         private string ToQueryString(NameValueCollection nvc)
         {
@@ -163,6 +148,5 @@ namespace GoxSharp
 
             return "";
         }
-      
     }
 }
