@@ -1,39 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace GoxSharp.Models
 {
     public class Tickers
     {
-        public List<Ticker> tickers { get; set; }
-        public Tickers(dynamic jsonObj)
+        public Dictionary<TickerType, Ticker> tickers { get; set; }
+        public Tickers(JToken jsonObj)
         {
-            tickers = new List<Ticker>();
+            tickers = new Dictionary<TickerType, Ticker>();
             string[] tickerNames = { "avg", "high", "low", "vwap", "last_all", "last_local", "last_orig", "last", "buy", "sell", "vol" };
             foreach (string tickName in tickerNames)
             {
-                JToken token = null;
-                if (jsonObj.data.TryGetValue(tickName, out token))
+                if (jsonObj.Count() == 2)  //we have the REST API schema
                 {
+                    Ticker tick = new Ticker(jsonObj["data"][tickName], tickName);
+                    tickers[tick.tickerType] = tick;
+
+                }
+                else // we have the socketIO schema
+                {
+                    JToken token = jsonObj[tickName];
                     Ticker tick = new Ticker(token, tickName);
-                    this.tickers.Add(tick);
+                    tickers[tick.tickerType] = tick;
                 }
             }
         }
-        public Tickers(JToken jsonObj)
+
+        public override string ToString()
         {
-            tickers = new List<Ticker>();
-            string[] tickerNames = { "avg", "high", "low", "vwap", "last_all", "last_local", "last_orig", "last", "buy", "sell", "vol" };
-            foreach (string tickName in tickerNames)
-            {
-                JToken token = jsonObj[tickName];
-                Ticker tick = new Ticker(token, tickName);
-                this.tickers.Add(tick);
-            }
+            return string.Format(
+                    "Average:{0}" + Environment.NewLine +
+                    "High:{1}" + Environment.NewLine +
+                    "Low:{2}" + Environment.NewLine +
+                    "Vwap:{3}" + Environment.NewLine +
+                    "Last_All:{4}" + Environment.NewLine +
+                    "Last_Orig:{5}" + Environment.NewLine +
+                    "Last:{6}" + Environment.NewLine +
+                    "Buy:{7}" + Environment.NewLine +
+                    "Sell:{8}" + Environment.NewLine + 
+                    "Volume:{9}",
+                    tickers[TickerType.Avg].display, tickers[TickerType.High].display, tickers[TickerType.Low].display, tickers[TickerType.Vwap].display,
+                    tickers[TickerType.Last_all].display,
+                    tickers[TickerType.Last_orig].display, tickers[TickerType.Last].display, tickers[TickerType.Buy].display,
+                    tickers[TickerType.Sell].display, tickers[TickerType.Vol].display);
         }
     }
 
@@ -49,13 +61,13 @@ namespace GoxSharp.Models
 
         public Ticker(JToken token, string type)
         {
-            this.tickerType = getTickerType(type);
-            this.value = Decimal.Parse(token["value"].Value<String>());
-            this.value_int = Int64.Parse(token["value_int"].Value<String>());
-            this.currency = getCurrency(token["currency"].Value<String>());
-            this.display = token["display"].Value<String>();
-            this.display_short = token["display_short"].Value<String>();
-            this.update_ts = DateTime.Now;
+            tickerType = getTickerType(type);
+            value = Decimal.Parse(token["value"].Value<String>());
+            value_int = Int64.Parse(token["value_int"].Value<String>());
+            currency = getCurrency(token["currency"].Value<String>());
+            display = token["display"].Value<String>();
+            display_short = token["display_short"].Value<String>();
+            update_ts = DateTime.Now;
         }
 
 
@@ -118,8 +130,6 @@ namespace GoxSharp.Models
 
             return result;
         }
-
-
     }
 
     public enum TickerType
@@ -130,6 +140,4 @@ namespace GoxSharp.Models
     {
         BTC, USD, AUD, CAD, CHF, CNY, DKK, EUR, GBP, HKD, JPY, NZD, PLN, RUB, SEK, SGD, THB, None
     }
-
-
 }
