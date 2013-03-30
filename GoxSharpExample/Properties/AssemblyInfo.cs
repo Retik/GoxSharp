@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MtGox")]
+[assembly: AssemblyTitle("GoxSharpExample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MtGox")]
+[assembly: AssemblyProduct("GoxSharpExample")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("12701429-d1d6-4105-93a3-74bb2170a6ee")]
+[assembly: Guid("f568c7e4-c5ff-4726-b375-1a28b781682e")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -31,17 +31,15 @@ namespace GoxSharp.Models
         {
             this.price = price;
             this.amount = amount;
-
         }
         public Order(JToken token, string orderType)
         {
-            DateTime now = DateTime.Now;
-            this.type = getOrderType(orderType);
-            Amount amount = new Amount() { value = token["amount"].Value<Decimal>(), value_int = token["amount_int"].Value<Int64>() };
-            Price price = new Price { value = token["price"].Value<Decimal>(), value_int = token["price_int"].Value<Int64>() };
-            this._price = price.value;
-            this._volume = amount.value;
-            this.stamp = new DateTime((token["stamp"].Value<long>() * 10) + 621355968000000000);
+            type = getOrderType(orderType);
+            Amount _Amount = new Amount{ value = token["amount"].Value<Decimal>(), value_int = token["amount_int"].Value<Int64>() };
+            Price _Price = new Price { value = token["price"].Value<Decimal>(), value_int = token["price_int"].Value<Int64>() };
+            _price = _Price.value;
+            _volume = _Amount.value;
+            stamp = new DateTime((token["stamp"].Value<long>() * 10) + 621355968000000000);
         }
 
         public static OrderType getOrderType(String type)
@@ -61,6 +59,14 @@ namespace GoxSharp.Models
                 default:
                     return OrderType.None;
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("OrderID:{0}, Currency:{1}, OrderType:{2}, OrderItem:{3}, Amount:{4}, Price:{5}, TimeStamp:{6}, " +
+                                 "Effective_Amount:{7}, OrderStatus:{8}, Date:{9}, Priority:{10}, Volume:{11}, Price:{12}, Actions:{13}",
+                oid, currency, type, item, amount.display, price.display, stamp.ToString("HH:mm"), effective_amount.display, status, date.ToString("MM/dd/yyyy"), 
+                priority, _volume, _price, actions);
         }
     }
 
@@ -146,6 +152,16 @@ namespace GoxSharp.Models
                 orders.Add(order);
             }
         }
+
+        public override string ToString()
+        {
+            string ordersString = orders[0].ToString();
+            for (int i = 1; i < orders.Count; i++)
+                ordersString += Environment.NewLine +Environment.NewLine + orders[i].ToString();
+            ordersString += Environment.NewLine;
+            return ordersString;
+        }
+
         public static DateTime UnixTimeStampToDate(double unixTimeStamp)
         {
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);

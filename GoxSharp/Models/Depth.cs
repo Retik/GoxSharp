@@ -71,12 +71,5 @@ namespace GoxSharp.Models
             }
             this.orders = orders;          
         }
-
-        
-
-    }
-
-    
-
-      
+    } 
 }
